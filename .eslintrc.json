@@ -1,0 +1,44 @@
+{
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json",
+    "sourceType": "module"
+  },
+  "plugins": [
+    "@typescript-eslint/eslint-plugin",
+    "unused-imports",
+    "sort-keys-fix",
+    "jsx-a11y"
+  ],
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    // You can remove the prefer-const rule, as it is already added by @typescript-eslint/recommended
+    // I suggest you add at least those two rules:
+    "@typescript-eslint/no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^_",
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "@typescript-eslint/no-explicit-any": "off",
+    "unused-imports/no-unused-imports": "warn",
+    "@typescript-eslint/ban-ts-comment": "off",
+
+    // "sort-destructure-keys/sort-destructure-keys": 2,
+    // "sort-keys-fix/sort-keys-fix": "warn",
+    "import/order": [
+      "error",
+      {
+        "newlines-between": "always",
+        "alphabetize": { "order": "desc" }
+      }
+    ],
+    "max-len": ["warn", { "code": 150, "ignorePattern": "d=\"([\\s\\S]*?)\"" }]
+  }
+}
