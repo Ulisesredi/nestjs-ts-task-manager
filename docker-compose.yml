@@ -1,0 +1,15 @@
+version: "3.1"
+
+services:
+  nestjs_task_manager_pg:
+    image: postgres:17.4
+    container_name: nestjs_task_manager_pg
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: task_manager_db
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5433:5432"
