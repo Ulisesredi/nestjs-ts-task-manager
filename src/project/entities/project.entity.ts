@@ -1,7 +1,8 @@
+import { UserProjectEntity } from "@/User/entities/userProject.entity";
 import { BaseEntity } from "src/config/base.entity";
 import { IProject } from "src/interfaces/project.interface";
-import { IUser } from "src/interfaces/user.interface";
-import { Column, Entity } from "typeorm";
+
+import { Column, Entity, OneToMany } from "typeorm";
 
 @Entity("project")
 export class ProjectEntity extends BaseEntity implements IProject {
@@ -9,4 +10,7 @@ export class ProjectEntity extends BaseEntity implements IProject {
   name: string;
   @Column()
   description: string;
+
+  @OneToMany(() => UserProjectEntity, (userProject) => userProject.user)
+  usersIncluded: UserProjectEntity[];
 }
