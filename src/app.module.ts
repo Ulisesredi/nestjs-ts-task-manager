@@ -1,6 +1,10 @@
 import { Module } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
 import { UserModule } from "@/User/user.module";
+import { DataSourceConfig } from "./config/data.source";
+
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { ProjectModule } from "./project/project.module";
 
 @Module({
   imports: [
@@ -8,7 +12,9 @@ import { UserModule } from "@/User/user.module";
       envFilePath: `.env.${process.env.NODE_ENV}.local`,
       isGlobal: true
     }),
-    UserModule
+    TypeOrmModule.forRoot({ ...DataSourceConfig }),
+    UserModule,
+    ProjectModule
   ]
 })
 export class AppModule {}
