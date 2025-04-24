@@ -30,33 +30,3 @@ export class UserDTO {
   @IsEnum(ROLE)
   role: ROLE;
 }
-
-export class PartialUserDTO {
-  @IsOptional()
-  @IsString()
-  firstName: string;
-
-  @IsOptional()
-  @IsString()
-  lastName: string;
-
-  @IsOptional()
-  @IsNumber()
-  age: number;
-
-  @IsOptional()
-  @IsString()
-  password: string;
-
-  @IsOptional()
-  @IsString()
-  email: string;
-
-  @IsOptional()
-  @IsString()
-  username: string;
-
-  @IsOptional()
-  @IsEnum(ROLE)
-  role: ROLE;
-}
