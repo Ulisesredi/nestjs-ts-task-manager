@@ -15,7 +15,7 @@ export class UserService {
     try {
       return await this.userRepository.save(dataset);
     } catch (error) {
-      throw new ErrorHandler.createSignatureError(error.message);
+      throw new Error(error.message);
     }
   }
 
@@ -23,7 +23,7 @@ export class UserService {
     try {
       return await this.userRepository.find();
     } catch (error) {
-      throw new ErrorHandler.createSignatureError(error.message);
+      throw ErrorHandler.createSignatureError(error.message);
     }
   }
 
@@ -37,7 +37,7 @@ export class UserService {
         });
       return user;
     } catch (error) {
-      throw new ErrorHandler.createSignatureError(error.message);
+      throw ErrorHandler.createSignatureError(error.message);
     }
   }
 
@@ -53,7 +53,7 @@ export class UserService {
 
       return result;
     } catch (error) {
-      throw new ErrorHandler.createSignatureError(error.message);
+      throw ErrorHandler.createSignatureError(error.message);
     }
   }
 
@@ -68,7 +68,7 @@ export class UserService {
       }
       return user;
     } catch (error) {
-      throw new ErrorHandler.createSignatureError(error.message);
+      throw ErrorHandler.createSignatureError(error.message);
     }
   }
 }
