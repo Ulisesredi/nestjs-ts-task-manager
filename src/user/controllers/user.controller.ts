@@ -1,6 +1,6 @@
 import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { UserService } from "../services/user.service";
-import { UserDTO } from "../dto/user.dto";
+import { JoinUserIntoProjectDTO, UserDTO } from "../dto/user.dto";
 
 @Controller("user")
 export class UserController {
@@ -11,9 +11,19 @@ export class UserController {
     return await this.userService.createUser(body);
   }
 
+  @Post("join-project")
+  public async joinProject(@Body() body: JoinUserIntoProjectDTO) {
+    return await this.userService.joinIntoProject(body);
+  }
+
   @Get()
   public async listUsers() {
     return await this.userService.getUsers();
+  }
+
+  @Get("projects/:id")
+  public async getUserWithProjects(@Param("id") id: string) {
+    return this.userService.getUserWithProjects(id);
   }
 
   @Get(":id")

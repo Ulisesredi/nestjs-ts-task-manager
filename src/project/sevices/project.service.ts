@@ -27,7 +27,12 @@ export class ProjectService {
   }
   public async getProjectById(id: string): Promise<ProjectEntity | null> {
     try {
-      return await this.projectRepository.findOne({ where: { id } });
+      return await this.projectRepository
+        .createQueryBuilder("project")
+        .where({ id })
+        .leftJoinAndSelect("project.usersIncluded", "usersIncluded")
+        .leftJoinAndSelect("usersIncluded.user", "user")
+        .getOne();
     } catch (error) {
       throw new Error("Error retrieving project by id: " + error.message);
     }

@@ -11,6 +11,6 @@ export class ProjectEntity extends BaseEntity implements IProject {
   @Column()
   description: string;
 
-  @OneToMany(() => UserProjectEntity, (userProject) => userProject.user)
+  @OneToMany(() => UserProjectEntity, (userProject) => userProject.project)
   usersIncluded: UserProjectEntity[];
 }
