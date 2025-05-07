@@ -103,4 +103,18 @@ export class UserService {
       throw ErrorHandler.createSignatureError(error.message);
     }
   }
+
+  public async findByUsernameOrEmail(value: string) {
+    try {
+      const user: UserEntity | null = await this.userRepository
+        .createQueryBuilder("user")
+        .addSelect("user.password")
+        .where("user.username = :value OR user.email = :value", { value })
+        .getOne();
+
+      return user;
+    } catch (error) {
+      throw ErrorHandler.createSignatureError(error.message);
+    }
+  }
 }
