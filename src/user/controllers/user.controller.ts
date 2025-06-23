@@ -3,9 +3,11 @@ import { UserService } from "../services/user.service";
 import { JoinUserIntoProjectDTO, UserDTO } from "../dto/user.dto";
 import { AuthGuard } from "src/auth/guards/auth.guard";
 import { PublicAccess } from "src/auth/decorators/public.decorator";
+import { RolesGuard } from "src/auth/guards/roles.guard";
+import { RoleAccess } from "src/auth/decorators/roles.decorator";
 
 @Controller("user")
-@UseGuards(AuthGuard)
+@UseGuards(AuthGuard, RolesGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -26,6 +28,7 @@ export class UserController {
   }
 
   @Get("projects/:id")
+  @RoleAccess("Admin")
   public async getUserWithProjects(@Param("id") id: string) {
     return this.userService.getUserWithProjects(id);
   }

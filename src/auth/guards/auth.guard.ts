@@ -2,7 +2,7 @@ import { UserService } from "@/User/services/user.service";
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
 import { Request } from "express";
-import { Observable } from "rxjs";
+
 import { PUBLIC_KEY } from "src/constants/key-decorators";
 import { useToken } from "src/utils/use.token";
 import { IUseToken } from "../interfaces/auth.interface";
@@ -22,7 +22,8 @@ export class AuthGuard implements CanActivate {
 
     const token = req.headers["token"];
 
-    if (!token || Array.isArray(token)) throw new UnauthorizedException("Invalid token.");
+    if (Array.isArray(token)) throw new UnauthorizedException("Invalid token.");
+    if (!token) throw new UnauthorizedException("Missing token.");
 
     const manageToken: IUseToken | string = useToken(token);
     if (typeof manageToken === "string") throw new UnauthorizedException(manageToken);

@@ -3,15 +3,23 @@ import { InjectRepository } from "@nestjs/typeorm";
 import { ProjectEntity } from "../entities/project.entity";
 import { DeleteResult, Repository, UpdateResult } from "typeorm";
 import { ProjectDTO } from "../dto/project.dto";
+import { UserProjectEntity } from "@/User/entities/userProject.entity";
 
 @Injectable()
 export class ProjectService {
   constructor(
-    @InjectRepository(ProjectEntity) private readonly projectRepository: Repository<ProjectEntity>
+    @InjectRepository(ProjectEntity) private readonly projectRepository: Repository<ProjectEntity>,
+    @InjectRepository(UserProjectEntity)
+    private readonly userProjectRepository: Repository<UserProjectEntity>
   ) {}
 
   public async createProject(dataset: ProjectDTO): Promise<ProjectEntity> {
     try {
+      await this.userProjectRepository.save({
+        access
+      })
+
+
       return await this.projectRepository.save(dataset);
     } catch (error) {
       throw new Error("Error creating project: " + error.message);
